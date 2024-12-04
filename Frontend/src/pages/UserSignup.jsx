@@ -11,11 +11,15 @@ const UserSignup = () => {
   const handleSubmit = (e)=>{
     e.preventDefault()
     setUserData({
-      firstname:firstname,
-      lastname:lastname,
+      fullname:{
+        firstname:firstname,
+        lastname:lastname,
+      },
       emial:email,
       password:password
     })
+    setFirstname('')
+    setLastname('')
     setEmail('')
     setPassword('')
   }
@@ -34,7 +38,7 @@ const UserSignup = () => {
           value={firstname}
           type="text"
           required
-          placeholder="Enter your firstname"
+          placeholder="Firstname"
           onChange={(e) => setFirstname(e.target.value)}
         />
         <h3 className="text-lg font-medium mb-2">What's your lastname</h3>
@@ -42,8 +46,8 @@ const UserSignup = () => {
           className="bg-gray-100 rounded px-4 py-2 border w-full text-lg placeholder:text-sm mb-3 focus:outline-none"
           value={lastname}
           type="text"
-          placeholder="Enter your lastname"
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Lastname"
+          onChange={(e) => setLastname(e.target.value)}
         />
         <h3 className="text-lg font-medium mb-2">What's your email</h3>
         <input
@@ -66,7 +70,7 @@ const UserSignup = () => {
         <button className="flex w-full bg-black text-white justify-center items-center py-2 rounded font-semibold mb-3">
           Sign up
         </button>
-        <p className="text-center">Already have an account?<Link to='/login' className="text-blue-600">Login here</Link></p>
+        <p className="text-center">Already have a account?<Link to='/login' className="text-blue-600">Login here</Link></p>
       </form>
     </div>
   </div>
