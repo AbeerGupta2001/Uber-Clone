@@ -1,23 +1,42 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { UserDataContext } from '../context/UserContext';
+
+
 
 const UserSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstname,setFirstname] = useState('')
   const [lastname,setLastname] = useState('')
-  const [userData,setUserData] = useState({})
+  const {user,setUser} = useContext(UserDataContext)
 
-  const handleSubmit = (e)=>{
+  const navigate = useNavigate()
+  const handleSubmit = async(e)=>{
     e.preventDefault()
-    setUserData({
+    const newUser = {
       fullname:{
         firstname:firstname,
         lastname:lastname,
       },
-      emial:email,
-      password:password
-    })
+      email:email,
+      password: password
+    }
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`,newUser)
+
+    if(response.status === 201){
+      const data = response.data
+
+      setUser(data.user)
+      localStorage.setItem('token',data.token)  
+
+      navigate('/home')
+
+
+    }
+
     setFirstname('')
     setLastname('')
     setEmail('')
@@ -32,23 +51,26 @@ const UserSignup = () => {
         alt="uber-logo"
       />
       <form onSubmit={handleSubmit}>
-      <h3 className="text-lg font-medium mb-2">What's your firstname</h3>
-        <input
-          className="bg-gray-100 rounded px-4 py-2 border w-full text-lg placeholder:text-sm mb-3 focus:outline-none"
-          value={firstname}
-          type="text"
-          required
-          placeholder="Firstname"
-          onChange={(e) => setFirstname(e.target.value)}
-        />
-        <h3 className="text-lg font-medium mb-2">What's your lastname</h3>
-        <input
-          className="bg-gray-100 rounded px-4 py-2 border w-full text-lg placeholder:text-sm mb-3 focus:outline-none"
-          value={lastname}
-          type="text"
-          placeholder="Lastname"
-          onChange={(e) => setLastname(e.target.value)}
-        />
+      <div className="flex flex-col w-full justify-between">
+            <h3>What's your full name</h3>
+            <div className="flex w-full justify-between">
+            <input
+                className="bg-gray-100 rounded px-4 py-2 border w-[48%] text-lg placeholder:text-sm mb-3 focus:outline-none"
+                value={firstname}
+                type="text"
+                required
+                placeholder="Firstname"
+                onChange={(e) => setFirstname(e.target.value)}
+              />
+              <input
+                className="bg-gray-100 rounded px-4 py-2 border w-[48%] text-lg placeholder:text-sm mb-3 focus:outline-none"
+                value={lastname}
+                type="text"
+                placeholder="Lastname"
+                onChange={(e) => setLastname(e.target.value)}
+              />
+            </div>
+          </div>
         <h3 className="text-lg font-medium mb-2">What's your email</h3>
         <input
           className="bg-gray-100 rounded px-4 py-2 border w-full text-lg placeholder:text-sm mb-3 focus:outline-none"

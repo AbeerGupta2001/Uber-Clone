@@ -55,8 +55,8 @@ export const loginCaptain = async(req,res,next)=>{
     }
 
     const token = captain.generateAuthToken()
-    res.cookie('token',token)
-    res.status(200).json({token,captain:{
+    res.cookie('captainToken',token)
+    res.status(201).json({token,captain:{
         ...captain._doc,password:undefined
     }})
 }
@@ -69,8 +69,6 @@ export const logoutCaptain = async(req,res,next)=>{
     const token = req.cookies.token || req.headers.authorization.split(' ')[1]
     await BlackListToken.create({token});
 
-
-
-    res.clearCookie('token');
+    res.clearCookie('captainToken');
     res.status(200).json({message:'Logout successfully'});
 }
