@@ -17,8 +17,8 @@ const LocationSearchPanel = ({vehiclePanel,setVehiclePanel,setPanelOpen}) => {
 
       {
         locations.length > 0 && (
-          locations.map((location,index) => (
-            <div key={index} onClick={()=>{
+          locations.map((location) => (
+            <div onClick={()=>{
               setVehiclePanel(true)
               setPanelOpen(false)
               }} className="flex gap-3 p-3 rounded-xl border-2 active:border-black my-2 items-center justify-start">
