@@ -9,6 +9,8 @@ import VehiclePanel from "../components/VehiclePanel";
 import ConfirmedRide from "../components/ConfirmedRide";
 import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
+import { MdLogout } from "react-icons/md";
+import { Link } from "react-router-dom";
 const Home = () => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
@@ -17,11 +19,11 @@ const Home = () => {
   const panelRef = useRef(null);
   const confirmVehicleRef = useRef(null);
   const vehicleFoundRef = useRef(null);
-  const waitingForDriverRef = useRef(null)
+  const waitingForDriverRef = useRef(null);
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [confirmedRide, setConfirmedRide] = useState(false);
   const [vehicleFound, setVehicleFound] = useState(false);
-  const [waitingForDriver,setWaitingForDriver] = useState(false)
+  const [waitingForDriver, setWaitingForDriver] = useState(false);
 
   const handleSubmit = (e) => {};
   useGSAP(
@@ -101,7 +103,6 @@ const Home = () => {
     [waitingForDriver]
   );
 
-
   return (
     <div className="relative h-screen overflow-hidden">
       <img
@@ -122,7 +123,7 @@ const Home = () => {
             {panelOpen ? <RiArrowDownWideLine /> : <RiArrowUpWideFill />}
           </button>
           <form onSubmit={handleSubmit}>
-            <div className="line absolute h-16 w-1 bg-gray-200 top-[46%] left-10 sm:top-[35%]"></div>
+            <div className="line absolute h-16 w-1 bg-gray-200 top-[46%] left-10 sm:top-[32%]"></div>
             <input
               className="bg-gray-200 px-8 py-2 rounded-lg placeholder:text-gray-400 w-full mt-3 focus:outline-none"
               value={pickup}
@@ -176,17 +177,23 @@ const Home = () => {
         ref={vehicleFoundRef}
         className="fixed w-full z-10 translate-y-full bg-white bottom-0 px-3 py-6 "
       >
-        <LookingForDriver setVehicleFound={setVehicleFound} setConfirmedRide={setConfirmedRide} setWaitingForDriver={setWaitingForDriver} />
+        <LookingForDriver
+          setVehicleFound={setVehicleFound}
+          setConfirmedRide={setConfirmedRide}
+          setWaitingForDriver={setWaitingForDriver}
+        />
       </div>
 
       <div
         ref={waitingForDriverRef}
         className="fixed w-full z-10 translate-y-full bg-white bottom-0 px-3 py-6 "
       >
-        <WaitingForDriver setVehicleFound={setVehicleFound} setWaitingForDriver={setWaitingForDriver}/>
+        <WaitingForDriver
+          setVehicleFound={setVehicleFound}
+          setWaitingForDriver={setWaitingForDriver}
+        />
       </div>
     </div>
-
   );
 };
 

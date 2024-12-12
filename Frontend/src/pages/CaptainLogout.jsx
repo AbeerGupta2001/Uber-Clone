@@ -7,7 +7,7 @@ const CaptainLogout = () => {
   const navigate = useNavigate();
   const logout = async () => {
     const response = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/users/logout`,
+      `${import.meta.env.VITE_BASE_URL}/captains/logout`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
